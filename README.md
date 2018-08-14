@@ -1,2 +1,2 @@
 # udacity
-Data Analyst Term 1 class
+Contains projects for udacity classes
