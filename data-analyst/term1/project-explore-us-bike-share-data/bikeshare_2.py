@@ -157,24 +157,46 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+# I orginally included this as part of my revision to my first set of feedback however I think I misinterpreted the feedback
+# and didn't actually need this function. I'm commenting it out just in case.
+# def display_output(functions, data_frame, city):
+#     for function in functions:
+#         display = input('Would you like to see stats for {}? Enter yes or no.\n'.format(city)).lower()
+#         if display == 'yes':
+#             function(data_frame)
+#         else:
+#             break
+#     print("\nThere are no more stats to display")
 
-def display_output(functions, data_frame, city):
-    for function in functions:
-        display = input('Would you like to see stats for {}? Enter yes or no.\n'.format(city)).lower()
+def display_data(data_frame, city):
+    display = input('Would you like to see raw data for {}? Enter yes or no.\n'.format(city)).lower()
+    valid_response = ['yes', 'no']
+    row_display = 5
+    counter = 0
+    while True:
+        while display not in valid_response:
+            display = input('Incorrect input. Please enter exactly yes or no.\n').lower()
         if display == 'yes':
-            function(data_frame)
+            start_loc = 0 + (row_display * counter)
+            end_loc = 5 + (row_display * counter)
+            print(data_frame.iloc[start_loc:end_loc])
+            counter = counter + 1
         else:
             break
-    print("\nThere are no more stats to display")
+
+        display = input('Would you like to see 5 more lines of raw data for {}? Enter yes or no.\n'.format(city)).lower()
 
 
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        functions = [time_stats, station_stats, trip_duration_stats, user_stats]
 
-        display_output(functions, df, city)
+        time_stats(df)
+        station_stats(df)
+        trip_duration_stats(df)
+        user_stats(df)
+        display_data(df, city)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
