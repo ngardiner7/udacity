@@ -1,0 +1,8 @@
+certifi==2018.4.16
+mkl-fft==1.0.4
+mkl-random==1.0.1
+numpy==1.13.3
+pandas==0.22.0
+python-dateutil==2.7.3
+pytz==2018.5
+six==1.11.0
